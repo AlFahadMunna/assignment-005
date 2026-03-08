@@ -63,6 +63,20 @@ const showData = (data) => {
   });
 };
 
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    filterButtons.forEach((btn) => {
+      btn.classList.add("btn-soft");
+    });
+
+    event.currentTarget.classList.remove("btn-soft");
+
+    const status = event.currentTarget.innerText.toLowerCase();
+    filterByStatus(status);
+  });
+});
 const showLoader = () => {
   document.getElementById("global-loader").classList.remove("hidden");
 };
