@@ -104,3 +104,25 @@ const showLoader = () => {
 const hideLoader = () => {
   document.getElementById("global-loader").classList.add("hidden");
 };
+
+const searchData = document
+  .getElementById("search-btn")
+  .addEventListener("click", () => {
+    showLoader();
+
+    const input = document.getElementById("search-input");
+    const searchValue = input.value.trim().toLowerCase();
+    console.log(searchValue);
+
+    fetch(
+      `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`,
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const allIssues = data.data;
+        showData(allIssues);
+        hideLoader();
+      });
+  });
+
+showIssues();
