@@ -63,6 +63,26 @@ const showData = (data) => {
   });
 };
 
+const filterByStatus = (status) => {
+  const filteredIssues =
+    status === "all"
+      ? allIssues
+      : allIssues.filter((item) => item.status === status);
+  showData(filteredIssues);
+};
+
+document
+  .getElementById("btn-all")
+  .addEventListener("click", () => filterByStatus("all"));
+
+document
+  .getElementById("btn-open")
+  .addEventListener("click", () => filterByStatus("open"));
+
+document
+  .getElementById("btn-closed")
+  .addEventListener("click", () => filterByStatus("closed"));
+
 const filterButtons = document.querySelectorAll(".filter-btn");
 
 filterButtons.forEach((button) => {
