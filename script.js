@@ -97,13 +97,6 @@ filterButtons.forEach((button) => {
     filterByStatus(status);
   });
 });
-const showLoader = () => {
-  document.getElementById("global-loader").classList.remove("hidden");
-};
-
-const hideLoader = () => {
-  document.getElementById("global-loader").classList.add("hidden");
-};
 
 const searchData = document
   .getElementById("search-btn")
@@ -124,5 +117,47 @@ const searchData = document
         hideLoader();
       });
   });
+
+const openModal = (id) => {
+  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      const modalData = data.data;
+
+      const modalBox = document.getElementById("modal-content");
+      modalBox.innerHTML = `
+          <h2 class="text-2xl font-bold mb-4">${modalData.title}</h2>
+          <div class="flex gap-2 mb-4">
+              <span class="badge badge-success">${modalData.status}</span>
+              <span class="badge badge-error">${modalData.priority}</span>
+          </div>
+          
+          <p class="text-slate-500 mb-6">${modalData.description}</p>
+
+          <div class="flex flex-wrap gap-2 mb-5">${modalData.labels
+            .map(
+              (label) => `
+                <div class="bg-yellow-500 border-slate-200 text-black text-[12px] pr-3 rounded-lg gap-1.5 uppercase font-bold h-auto">
+                    <i class="fa-solid ${label.toLowerCase().includes("bug") ? "fa-bug text-red-400" : "fa-circle-info text-amber-400"}"></i>${label}
+                </div>`,
+            )
+            .join("")}
+          </div>
+          
+          <div class="p-4 bg-slate-50 rounded-lg">
+              <p><strong>Assignee:</strong> ${modalData.assignee || "None"}</p>
+              <p><strong>Created:</strong> ${new Date(modalData.createdAt).toLocaleDateString()}</p>
+          </div>`;
+      document.getElementById("issue_modal").showModal();
+    });
+};
+
+const showLoader = () => {
+  document.getElementById("global-loader").classList.remove("hidden");
+};
+
+const hideLoader = () => {
+  document.getElementById("global-loader").classList.add("hidden");
+};
 
 showIssues();
