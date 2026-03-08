@@ -22,7 +22,20 @@
     <title>GitHub Issue Tracker Home</title>
   </head>
   <body>
-    <h1>This is home</h1>
+    <!-- == Loading Spinner == -->
+    <div
+      id="global-loader"
+      class="hidden fixed inset-0 bg-white/70 backdrop-blur-sm z-[10] flex items-center justify-center"
+    >
+      <div class="flex flex-col items-center">
+        <span class="loading loading-spinner loading-lg text-[#5A00FF]"></span>
+        <p
+          class="mt-4 text-slate-500 font-bold animate-pulse text-xs uppercase tracking-widest"
+        >
+          Please Wait...
+        </p>
+      </div>
+    </div>
     <script src="./script.js"></script>
   </body>
 </html>
