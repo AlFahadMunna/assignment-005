@@ -85,6 +85,8 @@ document
 
 const filterButtons = document.querySelectorAll(".filter-btn");
 
+filterButtons[0].classList.remove("btn-soft");
+
 filterButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     filterButtons.forEach((btn) => {
