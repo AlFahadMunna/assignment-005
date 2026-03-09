@@ -31,9 +31,13 @@ const showData = (data) => {
                 ${item.status === "closed" ? "border-t-4 border-purple-500" : "border-t-4 border-emerald-500"}">
                 <div class="p-6">
                     <div class="flex justify-between items-start mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500">
-                            <i class="fa-solid fa-circle-check"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-xl ${item.status === "open" ? "bg-emerald-50" : "bg-purple-50"} flex items-center justify-center text-emerald-500">
+  ${
+    item.status === "open"
+      ? '<img src="./assets/open-status.png" />'
+      : '<img src="./assets/closed.png" />'
+  }
+</div>
                         <span class="bg-red-50 text-red-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">${item.priority}</span>
                     </div>
 
@@ -107,8 +111,6 @@ const searchData = document
 
     const input = document.getElementById("search-input");
     const searchValue = input.value.trim().toLowerCase();
-    console.log(searchValue);
-
     fetch(
       `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`,
     )
